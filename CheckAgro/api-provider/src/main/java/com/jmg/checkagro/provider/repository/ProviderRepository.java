@@ -1,9 +1,9 @@
 package com.jmg.checkagro.provider.repository;
 
-import com.jmg.checkagro.check.model.Check;
+import com.jmg.checkagro.provider.model.Provider;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ProviderRepository extends JpaRepository<Check,Long> {
+public interface ProviderRepository extends JpaRepository<Provider,Long> {
 }
