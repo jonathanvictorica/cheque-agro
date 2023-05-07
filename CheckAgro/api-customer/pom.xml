@@ -80,6 +80,8 @@
 			<artifactId>feign-jackson</artifactId>
 			<version>11.1</version>
 		</dependency>
+
+
 	</dependencies>
 
 	<build>

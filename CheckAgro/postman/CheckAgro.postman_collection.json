@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\"documentType\": \"CUIT\",\r\n\"documentNumber\": \"12345667\",\r\n\"businessName\": \"Mi Empresa SRL\",\r\n\"email\": \"miempresa@example.com\",\r\n\"phone\": \"555-1234\"\r\n}",
+							"raw": "{\r\n\"documentType\": \"CUIT\",\r\n\"documentNumber\": \"222222\",\r\n\"businessName\": \"Mi Empresa SRL\",\r\n\"email\": \"miempresa@example.com\",\r\n\"phone\": \"555-1234\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -126,7 +126,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n\"documentType\": \"CUIT\",\r\n\"documentNumber\": \"12345667\",\r\n\"businessName\": \"Mi Empresa SRL\",\r\n\"email\": \"miempresa@example.com\",\r\n\"phone\": \"555-1234\"\r\n}",
+							"raw": "{\r\n\"documentType\": \"CUIT\",\r\n\"documentNumber\": \"1234777\",\r\n\"businessName\": \"Mi Empresa SRL\",\r\n\"email\": \"miempresa@example.com\",\r\n\"phone\": \"555-1234\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -134,12 +134,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/api/v1/provider",
+							"raw": "http://localhost:8082/api/v1/provider",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8081",
+							"port": "8082",
 							"path": [
 								"api",
 								"v1",
@@ -164,12 +164,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8081/api/v1/provider/2",
+							"raw": "http://localhost:8082/api/v1/provider/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8081",
+							"port": "8082",
 							"path": [
 								"api",
 								"v1",
@@ -186,12 +186,12 @@
 						"method": "DELETE",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8081/api/v1/provider/2",
+							"raw": "http://localhost:8082/api/v1/provider/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8081",
+							"port": "8082",
 							"path": [
 								"api",
 								"v1",
@@ -208,12 +208,12 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "http://localhost:8081/api/v1/provider/2",
+							"raw": "http://localhost:8082/api/v1/provider/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8081",
+							"port": "8082",
 							"path": [
 								"api",
 								"v1",
@@ -228,7 +228,136 @@
 		},
 		{
 			"name": "Check",
-			"item": []
+			"item": [
+				{
+					"name": "CreateCheck",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"documentTypeCustomer\": \"CUIT\",\r\n  \"documentValueCustomer\": \"222222\",\r\n  \"documentTypeProvider\": \"CUIT\",\r\n  \"documentValueProvider\": \"1234777\",\r\n  \"amountTotal\": 5000000.00,\r\n  \"monthsDuration\": 6,\r\n  \"checkDetails\": [\r\n    {\r\n      \"concept\": \"Pago de Servicios\",\r\n      \"amountUnit\": 100.00,\r\n      \"quantity\": 5\r\n    },\r\n    {\r\n      \"concept\": \"Mantenimiento\",\r\n      \"amountUnit\": 50.00,\r\n      \"quantity\": 10\r\n    }\r\n  ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/api/v1/check",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"v1",
+								"check"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCheck",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/api/v1/check/10",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"v1",
+								"check",
+								"10"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Pay",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"documentTypeCustomer\": \"CUIT\",\r\n  \"documentValueCustomer\": \"12345226997\",\r\n  \"documentTypeProvider\": \"CUIT\",\r\n  \"documentValueProvider\": \"1234777\",\r\n  \"amountTotal\": 1000.00,\r\n  \"monthsDuration\": 6,\r\n  \"checkDetails\": [\r\n    {\r\n      \"concept\": \"Pago de Servicios\",\r\n      \"amountUnit\": 100.00,\r\n      \"quantity\": 5\r\n    },\r\n    {\r\n      \"concept\": \"Mantenimiento\",\r\n      \"amountUnit\": 50.00,\r\n      \"quantity\": 10\r\n    }\r\n  ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/api/v1/check/pay/15",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"v1",
+								"check",
+								"pay",
+								"15"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"documentTypeCustomer\": \"CUIT\",\r\n  \"documentValueCustomer\": \"12345226997\",\r\n  \"documentTypeProvider\": \"CUIT\",\r\n  \"documentValueProvider\": \"1234777\",\r\n  \"amountTotal\": 1000.00,\r\n  \"monthsDuration\": 6,\r\n  \"checkDetails\": [\r\n    {\r\n      \"concept\": \"Pago de Servicios\",\r\n      \"amountUnit\": 100.00,\r\n      \"quantity\": 5\r\n    },\r\n    {\r\n      \"concept\": \"Mantenimiento\",\r\n      \"amountUnit\": 50.00,\r\n      \"quantity\": 10\r\n    }\r\n  ]\r\n}\r\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/api/v1/check/cancel/3",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"v1",
+								"check",
+								"cancel",
+								"3"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	]
 }

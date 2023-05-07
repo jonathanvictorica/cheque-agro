@@ -23,8 +23,6 @@ public class CheckRequest {
     private String documentTypeProvider;
     @Size(min = 1, max = 20)
     private String documentValueProvider;
-    @NotNull
-    private LocalDateTime emitDate;
     @NotNull()
     @Digits(integer = 15, fraction = 2)
     private BigDecimal amountTotal;

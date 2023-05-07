@@ -19,13 +19,10 @@ public class ProviderCheckLimit {
     private ProviderCheckLimit.ProviderCheckLimitId id;
 
     @Column(nullable = false,precision = 17, scale = 2)
-    private BigDecimal checkAmountLimit;
-
-    @Column(nullable = false,precision = 17, scale = 2)
     private BigDecimal checkAmountReceived;
 
     @Column(nullable = false,precision = 17, scale = 2)
-    private BigDecimal checkAmountConsumed;
+    private BigDecimal checkAmountActive;
     @AllArgsConstructor
     @NoArgsConstructor
     @Getter

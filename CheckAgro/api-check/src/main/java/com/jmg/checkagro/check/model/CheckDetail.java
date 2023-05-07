@@ -20,7 +20,7 @@ public class CheckDetail implements Serializable {
     private Long id;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "check_Virtual_id", nullable = false, referencedColumnName = "check_Virtual_id"
+    @JoinColumn(name = "check_Virtual_id", referencedColumnName = "check_Virtual_id"
           )
     private Check checkVirtual;
 
