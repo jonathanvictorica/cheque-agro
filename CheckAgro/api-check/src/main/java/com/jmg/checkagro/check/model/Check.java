@@ -42,7 +42,6 @@ public class Check implements Serializable {
     @Column(nullable = false,precision = 17, scale = 2)
     private BigDecimal commissionAgro;
 
-    //EMIT, PAYED
     @Column(nullable = false, length = 10)
     private String stateCheck;
 
