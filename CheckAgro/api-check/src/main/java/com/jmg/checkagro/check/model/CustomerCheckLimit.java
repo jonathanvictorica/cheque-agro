@@ -1,10 +1,7 @@
 package com.jmg.checkagro.check.model;
 
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 import java.math.BigDecimal;
@@ -15,6 +12,7 @@ import java.math.BigDecimal;
 @NoArgsConstructor
 @Getter
 @Setter
+@Builder
 public class CustomerCheckLimit {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

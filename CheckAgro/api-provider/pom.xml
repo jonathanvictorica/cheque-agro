@@ -64,6 +64,20 @@
 			<artifactId>mapstruct</artifactId>
 			<version>1.4.2.Final</version>
 		</dependency>
+
+
+		<!-- dependencia principal de Feign -->
+		<dependency>
+			<groupId>io.github.openfeign</groupId>
+			<artifactId>feign-core</artifactId>
+			<version>11.1</version>
+		</dependency>
+		<!-- dependencia de codificación de Jackson -->
+		<dependency>
+			<groupId>io.github.openfeign</groupId>
+			<artifactId>feign-jackson</artifactId>
+			<version>11.1</version>
+		</dependency>
 	</dependencies>
 
 	<build>

@@ -22,3 +22,5 @@ spring:
         dialect: org.hibernate.dialect.MySQL55Dialect
         format_sql: true
     show-sql: true
+
+urlCheck: http://localhost:8083

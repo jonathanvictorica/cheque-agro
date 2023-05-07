@@ -1,21 +1,30 @@
 package com.jmg.checkagro.provider.service;
 
+import com.jmg.checkagro.provider.client.CheckMSClient;
 import com.jmg.checkagro.provider.exception.MessageCode;
 import com.jmg.checkagro.provider.exception.ProviderException;
 import com.jmg.checkagro.provider.model.Provider;
 import com.jmg.checkagro.provider.repository.ProviderRepository;
 import com.jmg.checkagro.provider.utils.DateTimeUtils;
+import feign.Feign;
+import feign.jackson.JacksonEncoder;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+
+import javax.transaction.Transactional;
 
 @Service
 public class ProviderService {
 
     private final ProviderRepository providerRepository;
+    @Value("${urlCheck}")
+    private String urlCheck;
 
     public ProviderService(ProviderRepository providerRepository) {
         this.providerRepository = providerRepository;
     }
 
+    @Transactional
     public Long create(Provider entity) throws ProviderException {
         if(providerRepository.findByDocumentTypeAndDocumentNumber(entity.getDocumentType(),entity.getDocumentNumber()).isPresent()){
             throw new ProviderException(MessageCode.PROVIDER_EXISTS);
@@ -23,7 +32,19 @@ public class ProviderService {
         entity.setCreation(DateTimeUtils.now());
         entity.setActive(true);
         providerRepository.save(entity);
+        registerProviderInMSCheck(entity);
         return entity.getId();
+    }
+
+    private void registerProviderInMSCheck(Provider entity) {
+
+        CheckMSClient client = Feign.builder()
+                .encoder(new JacksonEncoder())
+                .target(CheckMSClient.class, urlCheck);
+        client.registerProvider(CheckMSClient.DocumentRequest.builder()
+                .documentType(entity.getDocumentType())
+                .documentValue(entity.getDocumentNumber())
+                .build());
     }
 
     public void update(Long id, Provider entity) throws ProviderException {
