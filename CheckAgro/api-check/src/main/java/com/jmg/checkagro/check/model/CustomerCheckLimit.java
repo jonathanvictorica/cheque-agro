@@ -4,6 +4,7 @@ package com.jmg.checkagro.check.model;
 import lombok.*;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Entity
@@ -14,23 +15,30 @@ import java.math.BigDecimal;
 @Setter
 @Builder
 public class CustomerCheckLimit {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column( nullable = false,name = "id")
-    private Long id;
-    @Column(nullable = false, length = 10)
-    private String documentTypeCustomer;
-    @Column(nullable = false, length = 20)
-    private String documentValueCustomer;
 
-    @Column(nullable = false,precision = 17, scale = 2)
+    @EmbeddedId
+    private CustomerCheckLimit.CustomerCheckLimitId id;
+
+    @Column(nullable = false, precision = 17, scale = 2)
     private BigDecimal checkAmountLimit;
 
-    @Column(nullable = false,precision = 17, scale = 2)
+    @Column(nullable = false, precision = 17, scale = 2)
     private BigDecimal checkAmountPayed;
 
-    @Column(nullable = false,precision = 17, scale = 2)
+    @Column(nullable = false, precision = 17, scale = 2)
     private BigDecimal checkAmountConsumed;
 
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Getter
+    @Setter
+    @Builder
+    @Embeddable
+    public static class CustomerCheckLimitId implements Serializable {
+        @Column(nullable = false, length = 10)
+        private String documentTypeCustomer;
+        @Column(nullable = false, length = 20)
+        private String documentValueCustomer;
+    }
 
 }

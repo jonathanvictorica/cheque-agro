@@ -5,5 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CustomerCheckLimitRepository extends JpaRepository<CustomerCheckLimit, Long> {
+public interface CustomerCheckLimitRepository extends JpaRepository<CustomerCheckLimit, CustomerCheckLimit.CustomerCheckLimitId > {
 }
