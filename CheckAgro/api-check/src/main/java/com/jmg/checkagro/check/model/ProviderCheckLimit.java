@@ -17,7 +17,7 @@ import java.math.BigDecimal;
 @Setter
 public class ProviderCheckLimit {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column( nullable = false,name = "id")
     private Long id;
     @Column(nullable = false, length = 10)

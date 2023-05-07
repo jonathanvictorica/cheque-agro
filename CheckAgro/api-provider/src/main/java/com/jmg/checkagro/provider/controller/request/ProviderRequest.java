@@ -1,22 +1,18 @@
-package com.jmg.checkagro.customer.controller.request;
+package com.jmg.checkagro.provider.controller.request;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.hibernate.annotations.Type;
 
-import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.time.LocalDate;
 
 
 @AllArgsConstructor
 @NoArgsConstructor
 @Getter
 @Setter
-public class CustomerRequest {
+public class ProviderRequest {
 
     @Size(min = 1, max = 10)
     private String documentType;

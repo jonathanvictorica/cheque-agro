@@ -19,8 +19,8 @@ import java.time.LocalDate;
 public class Provider implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    @Column(nullable = false)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column( nullable = false)
     private Long id;
     @Column(nullable = false, length = 10)
     private String documentType;
@@ -37,4 +37,5 @@ public class Provider implements Serializable {
     @Column(nullable = false, columnDefinition = "integer default 1")
     @Type(type = "org.hibernate.type.NumericBooleanType")
     private Boolean active;
+
 }

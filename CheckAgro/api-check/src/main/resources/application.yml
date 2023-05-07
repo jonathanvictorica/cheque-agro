@@ -1,14 +1,24 @@
 server:
-  port: 0
+  port: 8083
 spring:
   application:
     name: api-check
   datasource:
-    driverClassName: com.mysql.jdbc.Driver
+    driverClassName: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://localhost:3306/checkAgro-dev
     username: usr-checkAgro
     password: pwd-checkAgro
+
   jpa:
-    hibernate.ddl-auto: update
     generate-ddl: true
+    hibernate:
+      enable_lazy_load_no_trans: true
+      event:
+        merge:
+          entity_copy_observer: allow
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL55Dialect
+        format_sql: true
     show-sql: true

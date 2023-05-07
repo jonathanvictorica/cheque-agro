@@ -19,7 +19,7 @@ import java.time.LocalDate;
 public class Customer implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column( nullable = false)
     private Long id;
     @Column(nullable = false, length = 10)
