@@ -236,7 +236,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n  \"documentTypeCustomer\": \"CUIT\",\r\n  \"documentValueCustomer\": \"222222\",\r\n  \"documentTypeProvider\": \"CUIT\",\r\n  \"documentValueProvider\": \"1234777\",\r\n  \"amountTotal\": 5000000.00,\r\n  \"monthsDuration\": 6,\r\n  \"checkDetails\": [\r\n    {\r\n      \"concept\": \"Pago de Servicios\",\r\n      \"amountUnit\": 100.00,\r\n      \"quantity\": 5\r\n    },\r\n    {\r\n      \"concept\": \"Mantenimiento\",\r\n      \"amountUnit\": 50.00,\r\n      \"quantity\": 10\r\n    }\r\n  ]\r\n}\r\n",
+							"raw": "{\r\n  \"documentTypeCustomer\": \"CUIT\",\r\n  \"documentValueCustomer\": \"222222\",\r\n  \"documentTypeProvider\": \"CUIT\",\r\n  \"documentValueProvider\": \"1234777\",\r\n  \"amountTotal\": 1000.00,\r\n  \"monthsDuration\": 6,\r\n  \"checkDetails\": [\r\n    {\r\n      \"concept\": \"Pago de Servicios\",\r\n      \"amountUnit\": 100.00,\r\n      \"quantity\": 5\r\n    },\r\n    {\r\n      \"concept\": \"Mantenimiento\",\r\n      \"amountUnit\": 50.00,\r\n      \"quantity\": 10\r\n    }\r\n  ]\r\n}\r\n",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -294,6 +294,41 @@
 					"response": []
 				},
 				{
+					"name": "PrintCheck",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8083/api/v1/check/print/2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"v1",
+								"check",
+								"print",
+								"2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Pay",
 					"request": {
 						"method": "PUT",
@@ -308,7 +343,7 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8083/api/v1/check/pay/15",
+							"raw": "http://localhost:8083/api/v1/check/pay/12",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -319,7 +354,7 @@
 								"v1",
 								"check",
 								"pay",
-								"15"
+								"12"
 							]
 						}
 					},
@@ -352,6 +387,104 @@
 								"check",
 								"cancel",
 								"3"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find-by-customer",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/api/v1/check/find-by-customer/CUIT/222222",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"v1",
+								"check",
+								"find-by-customer",
+								"CUIT",
+								"222222"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "find-by-provider",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/api/v1/check/find-by-provider/CUIT/1234777",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"v1",
+								"check",
+								"find-by-provider",
+								"CUIT",
+								"1234777"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "providerResume",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/api/v1/check/provider/resume/CUIT/1234777",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"v1",
+								"check",
+								"provider",
+								"resume",
+								"CUIT",
+								"1234777"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "customerResume",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8083/api/v1/check/customer/resume/CUIT/222222",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8083",
+							"path": [
+								"api",
+								"v1",
+								"check",
+								"customer",
+								"resume",
+								"CUIT",
+								"222222"
 							]
 						}
 					},
