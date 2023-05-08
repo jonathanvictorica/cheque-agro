@@ -36,6 +36,14 @@ public class CheckService {
         check.setEmitDate(DateTimeUtils.nowDateTime());
         check.setCommissionAgro(check.getAmountTotal().multiply(BigDecimal.valueOf(0.10)));
         check.getCheckDetails().forEach(checkDetail -> checkDetail.setCheckVirtual(check));
+
+        var total=check.getCheckDetails().stream().map(
+                checkDetail -> checkDetail.getAmountUnit().multiply(BigDecimal.valueOf(checkDetail.getQuantity()))
+        ).reduce(BigDecimal.ZERO,BigDecimal::add);
+        if(total.compareTo(check.getAmountTotal())!=0){
+            throw new CheckException(MessageCode.CHECK_NOT_TOTAL_AMOUNT_EQUALS);
+        }
+
         CustomerCheckLimit customer = customerCheckLimitRepository.findById(
                 CustomerCheckLimit.CustomerCheckLimitId.builder()
                         .documentTypeCustomer(check.getDocumentTypeCustomer())
