@@ -11,6 +11,10 @@ public interface CheckMSClient {
     @RequestLine("POST /api/v1/check/provider/register")
     void registerProvider(DocumentRequest request);
 
+    @Headers("Content-Type: application/json")
+    @RequestLine("POST /api/v1/check/provider/delete")
+    void deleteProvider(DocumentRequest request);
+
     @AllArgsConstructor
     @NoArgsConstructor
     @Getter

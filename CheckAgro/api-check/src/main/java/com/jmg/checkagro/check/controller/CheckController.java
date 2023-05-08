@@ -53,7 +53,7 @@ public class CheckController {
     }
 
     @GetMapping("/print/{id}")
-    public void print(@PathVariable Long id, HttpServletRequest request, HttpServletResponse response) throws CheckException, IOException {
+    public void print(@PathVariable Long id,HttpServletResponse response) throws CheckException, IOException {
         byte[] fileBytes = checkPrintService.printCheck(id);
         response.setContentType("application/pdf");
         response.setHeader("Content-Disposition", "attachment;filename=checkVirtual.pdf");

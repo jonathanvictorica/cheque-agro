@@ -44,13 +44,23 @@ public class CustomerService {
                 .encoder(new JacksonEncoder())
                 .target(CheckMSClient.class, urlCheck);
         client.registerCustomer(CheckMSClient.DocumentRequest.builder()
-                        .documentType(entity.getDocumentType())
-                        .documentValue(entity.getDocumentNumber())
+                .documentType(entity.getDocumentType())
+                .documentValue(entity.getDocumentNumber())
+                .build());
+    }
+
+    private void deleteCustomerInMSCheck(Customer entity) {
+        CheckMSClient client = Feign.builder()
+                .encoder(new JacksonEncoder())
+                .target(CheckMSClient.class, urlCheck);
+        client.deleteCustomer(CheckMSClient.DocumentRequest.builder()
+                .documentType(entity.getDocumentType())
+                .documentValue(entity.getDocumentNumber())
                 .build());
     }
 
     public void update(Long id, Customer entity) throws CustomerException {
-        var entityUpdate = customerRepository.findById(id).orElseThrow(()->new CustomerException(MessageCode.CUSTOMER_NOT_FOUND));
+        var entityUpdate = customerRepository.findById(id).orElseThrow(() -> new CustomerException(MessageCode.CUSTOMER_NOT_FOUND));
         entity.setDocumentType(entityUpdate.getDocumentType());
         entity.setDocumentNumber(entityUpdate.getDocumentNumber());
         entity.setId(entityUpdate.getId());
@@ -59,11 +69,14 @@ public class CustomerService {
         customerRepository.save(entity);
     }
 
-    public void deleteById(Long id) {
-        customerRepository.updateActive(false,id);
+    public void deleteById(Long id) throws CustomerException {
+        var entityDelete = customerRepository.findById(id).orElseThrow(() -> new CustomerException(MessageCode.CUSTOMER_NOT_FOUND));
+        customerRepository.updateActive(false, id);
+        deleteCustomerInMSCheck(entityDelete);
+
     }
 
     public Customer getById(Long id) throws CustomerException {
-        return customerRepository.findByIdAndActive(id,true).orElseThrow(()->new CustomerException(MessageCode.CUSTOMER_NOT_FOUND));
+        return customerRepository.findByIdAndActive(id, true).orElseThrow(() -> new CustomerException(MessageCode.CUSTOMER_NOT_FOUND));
     }
 }

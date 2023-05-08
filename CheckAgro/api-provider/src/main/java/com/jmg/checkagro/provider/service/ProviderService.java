@@ -47,8 +47,19 @@ public class ProviderService {
                 .build());
     }
 
+    private void deleteProviderInMSCheck(Provider entity) {
+
+        CheckMSClient client = Feign.builder()
+                .encoder(new JacksonEncoder())
+                .target(CheckMSClient.class, urlCheck);
+        client.deleteProvider(CheckMSClient.DocumentRequest.builder()
+                .documentType(entity.getDocumentType())
+                .documentValue(entity.getDocumentNumber())
+                .build());
+    }
+
     public void update(Long id, Provider entity) throws ProviderException {
-        var entityUpdate = providerRepository.findById(id).orElseThrow(()->new ProviderException(MessageCode.PROVIDER_NOT_FOUND));
+        var entityUpdate = providerRepository.findById(id).orElseThrow(() -> new ProviderException(MessageCode.PROVIDER_NOT_FOUND));
         entity.setDocumentType(entityUpdate.getDocumentType());
         entity.setDocumentNumber(entityUpdate.getDocumentNumber());
         entity.setId(entityUpdate.getId());
@@ -57,11 +68,13 @@ public class ProviderService {
         providerRepository.save(entity);
     }
 
-    public void deleteById(Long id) {
-        providerRepository.updateActive(false,id);
+    public void deleteById(Long id) throws ProviderException {
+        var entityDelete = providerRepository.findById(id).orElseThrow(() -> new ProviderException(MessageCode.PROVIDER_NOT_FOUND));
+        providerRepository.updateActive(false, id);
+        deleteProviderInMSCheck(entityDelete);
     }
 
     public Provider getById(Long id) throws ProviderException {
-        return providerRepository.findByIdAndActive(id,true).orElseThrow(()->new ProviderException(MessageCode.PROVIDER_NOT_FOUND));
+        return providerRepository.findByIdAndActive(id, true).orElseThrow(() -> new ProviderException(MessageCode.PROVIDER_NOT_FOUND));
     }
 }

@@ -35,7 +35,7 @@ public class ProviderController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) throws ProviderException {
         providerService.deleteById(id);
     }
 

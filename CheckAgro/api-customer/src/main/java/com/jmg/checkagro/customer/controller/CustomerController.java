@@ -34,7 +34,7 @@ public class CustomerController {
     }
 
     @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
+    public void delete(@PathVariable Long id) throws CustomerException {
         customerService.deleteById(id);
     }
 

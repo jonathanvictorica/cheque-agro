@@ -2,6 +2,7 @@ package com.jmg.checkagro.check.model;
 
 
 import lombok.*;
+import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,11 +19,16 @@ public class ProviderCheckLimit {
     @EmbeddedId
     private ProviderCheckLimit.ProviderCheckLimitId id;
 
-    @Column(nullable = false,precision = 17, scale = 2)
+    @Column(nullable = false, columnDefinition = "integer default 1")
+    @Type(type = "org.hibernate.type.NumericBooleanType")
+    private Boolean active;
+
+    @Column(nullable = false, precision = 17, scale = 2)
     private BigDecimal checkAmountReceived;
 
-    @Column(nullable = false,precision = 17, scale = 2)
+    @Column(nullable = false, precision = 17, scale = 2)
     private BigDecimal checkAmountActive;
+
     @AllArgsConstructor
     @NoArgsConstructor
     @Getter

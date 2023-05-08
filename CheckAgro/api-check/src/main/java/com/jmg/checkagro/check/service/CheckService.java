@@ -49,19 +49,23 @@ public class CheckService {
                         .documentTypeCustomer(check.getDocumentTypeCustomer())
                         .documentValueCustomer(check.getDocumentValueCustomer())
                         .build()
-        ).orElseThrow(()->new CheckException(MessageCode.CHECK_CUSTOMER_NOT_FOUND));
+        ).orElseThrow(() -> new CheckException(MessageCode.CHECK_CUSTOMER_NOT_FOUND));
 
         var provider = providerCheckLimitRepository.findById(
                 ProviderCheckLimit.ProviderCheckLimitId.builder()
                         .documentTypeProvider(check.getDocumentTypeProvider())
                         .documentValueProvider(check.getDocumentValueProvider())
                         .build()
-        ).orElseThrow(()->new CheckException(MessageCode.CHECK_PROVIDER_NOT_FOUND));
+        ).orElseThrow(() -> new CheckException(MessageCode.CHECK_PROVIDER_NOT_FOUND));
+
+        if (!provider.getActive()) {
+            throw new CheckException(MessageCode.CHECK_PROVIDER_NOT_FOUND);
+        }
 
         customer.setCheckAmountConsumed(customer.getCheckAmountConsumed().add(check.getAmountTotal()));
         provider.setCheckAmountActive(provider.getCheckAmountActive().add(check.getAmountTotal()));
 
-        if(customer.getCheckAmountConsumed().compareTo(customer.getCheckAmountLimit())>0){
+        if (customer.getCheckAmountConsumed().compareTo(customer.getCheckAmountLimit()) > 0) {
             throw new CheckException(MessageCode.CUSTOMER_NOT_LIMIT);
         }
 
@@ -158,8 +162,32 @@ public class CheckService {
                                 .documentValueProvider(documentValue)
                                 .build())
                         .checkAmountActive(BigDecimal.ZERO)
+                        .active(true)
                         .checkAmountReceived(BigDecimal.ZERO)
                         .build()
         );
+    }
+
+    public void deleteCustomer(String documentType, String documentValue) throws CheckException {
+        var customer = customerCheckLimitRepository.findById(
+                CustomerCheckLimit.CustomerCheckLimitId.builder()
+                        .documentTypeCustomer(documentType)
+                        .documentValueCustomer(documentValue)
+                        .build()
+        ).orElseThrow(() -> new CheckException(MessageCode.CHECK_CUSTOMER_NOT_FOUND));
+        customer.setCheckAmountLimit(BigDecimal.ZERO);
+        customerCheckLimitRepository.save(customer);
+    }
+
+    public void deleteProvider(String documentType, String documentValue) throws CheckException {
+        var provider = providerCheckLimitRepository.findById(
+                ProviderCheckLimit.ProviderCheckLimitId.builder()
+                        .documentTypeProvider(documentType)
+                        .documentValueProvider(documentValue)
+                        .build()
+        ).orElseThrow(() -> new CheckException(MessageCode.CHECK_PROVIDER_NOT_FOUND));
+        provider.setActive(false);
+        providerCheckLimitRepository.save(provider);
+
     }
 }

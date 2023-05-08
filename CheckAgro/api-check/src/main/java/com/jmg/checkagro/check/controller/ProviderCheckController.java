@@ -26,5 +26,10 @@ public class ProviderCheckController {
         checkService.registerProvider(request.getDocumentType(), request.getDocumentValue());
     }
 
+    @PostMapping("/delete")
+    public void delete(@RequestBody DocumentRequest request) throws CheckException {
+        checkService.deleteProvider(request.getDocumentType(), request.getDocumentValue());
+    }
+
 
 }

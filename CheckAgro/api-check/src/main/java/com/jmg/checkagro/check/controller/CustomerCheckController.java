@@ -26,5 +26,9 @@ public class CustomerCheckController {
         checkService.registerCustomer(request.getDocumentType(), request.getDocumentValue());
     }
 
+    @PostMapping("/delete")
+    public void delete(@RequestBody DocumentRequest request) throws CheckException {
+        checkService.deleteCustomer(request.getDocumentType(), request.getDocumentValue());
+    }
 
 }
